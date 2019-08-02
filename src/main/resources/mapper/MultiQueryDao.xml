@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="com.multi_threads_practice.dao.MultiQueryDao">
+
+    <select id="getOrderList" parameterType="java.lang.String" resultType="com.multi_threads_practice.bean.Order">
+        select * from tbl_order
+        where
+        orderDate between to_date(${startTime},'YYYY-MM-DD hh24:mi:ss') and to_date(${endTime},'YYYY-MM-DD hh24:mi:ss')
+    </select>
+
+</mapper>
