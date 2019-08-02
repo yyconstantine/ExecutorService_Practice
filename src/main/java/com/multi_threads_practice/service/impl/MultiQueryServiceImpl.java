@@ -47,20 +47,19 @@ public class MultiQueryServiceImpl implements MultiQueryService {
         List<Future<List<Order>>> futureList = new ArrayList<>();// 用于接收执行结果
         try {
             futureList = exec.invokeAll(tasks);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < timeInterval; i++) {
-            if (futureList.get(i) != null) {
-                try {
-                    list.addAll(futureList.get(i).get());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+            for (int i = 0; i < timeInterval; i++) {
+                if (futureList.get(i) != null) {
+                    try {
+                        list.addAll(futureList.get(i).get());
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            exec.shutdown();
         }
 
         // 将订单按商户进行group
