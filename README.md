@@ -10,14 +10,14 @@
         - 问题：**无法说服leader**。。。
 ---        
 - 使用：
-    1.接收传入的时间，计算出其时间间隔，按天分割为dao查询所需要的格式
-    2.创建Callable的类，在run方法实际执行dao，所需要的参数通过构造方法传入
-    3.在service中将Callable类对象放到Callable的list中，交给线程池执行
-    4.使用Future接收Callable的返回值，**其中get为阻塞的**
-    5.将需要group by的key和接收的List以key-value的形式放到一个Map中进行合并
-    6.业务操作，累加交易金额
+    1.接收传入的时间，计算出其时间间隔，按天分割为dao查询所需要的格式<br>
+    2.创建Callable的类，在run方法实际执行dao，所需要的参数通过构造方法传入<br>
+    3.在service中将Callable类对象放到Callable的list中，交给线程池执行<br>
+    4.使用Future接收Callable的返回值，**其中get为阻塞的**<br>
+    5.将需要group by的key和接收的List以key-value的形式放到一个Map中进行合并<br>
+    6.业务操作，累加交易金额<br>
     **PS：构造方法传参实际为线程不安全的，后面的线程会将之前的数据覆盖，在此处通过ConcurrentHashMap实现线程安全**
 ---       
  - 自评：
     - 使用简陋，本想一起使用countDownLatch，不知道是不会用还是其他，发现并不需要用到countDownLatch即可实现
-    - try-catch包括混乱
+    - try-catch包裹混乱
